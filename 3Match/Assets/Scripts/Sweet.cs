@@ -68,4 +68,17 @@ public class Sweet : MonoBehaviour
         this.Color = color;
         this.Type = type;
     }
+    public void IniSweet(int xpos, int ypos, GameManager.SweetType type)
+    {
+        this.XPos = xpos;
+        this.YPos = ypos;
+        
+        this.Type = type;
+    }
+    public void IniSweet(GameManager.SweetType type)
+    {
+       
+
+        this.Type = type;
+    }
 }

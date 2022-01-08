@@ -46,7 +46,7 @@ public class Move : MonoBehaviour
     {
         if (IsMove)
         {
-        gameObject.GetComponent<Transform>().Translate((DestPos-gameObject.GetComponent<Transform>().position)*0.1f);
+            gameObject.GetComponent<Transform>().Translate((DestPos - gameObject.GetComponent<Transform>().position) * 0.1f);
             if (gameObject.GetComponent<Transform>().position == destPos)
             {
 
@@ -82,6 +82,28 @@ public class Move : MonoBehaviour
         GameManager.Instance.Sweets[s2p[0], s2p[1]] = sweetSelect.gameObject.GetComponent<Sweet>();
         return pos;
 
+    }
+
+    public void ExchangeSweet(int[] sweet1, int[] sweet2)
+    {
+        //交换两个糖果的真实position
+        Vector3 temp = new Vector3();
+        temp = GameManager.Instance.Sweets[sweet1[0], sweet1[1]].GetComponent<Transform>().position;
+        GameManager.Instance.Sweets[sweet1[0], sweet1[1]].GetComponent<Transform>().position = GameManager.Instance.Sweets[sweet2[0], sweet2[1]].GetComponent<Transform>().position;
+        GameManager.Instance.Sweets[sweet2[0], sweet2[1]].GetComponent<Transform>().position = temp;
+        //交换两个糖果的sweet里 pos 参数
+        GameManager.Instance.Sweets[sweet1[0], sweet1[1]].XPos = sweet2[0];
+        GameManager.Instance.Sweets[sweet1[0], sweet1[1]].YPos = sweet2[1];
+        GameManager.Instance.Sweets[sweet2[0], sweet2[1]].XPos = sweet1[0];
+        GameManager.Instance.Sweets[sweet2[0], sweet2[1]].YPos = sweet1[1];
+
+        //交换两个糖果的sweet【】位置
+        Sweet tempSweet = GameManager.Instance.Sweets[sweet1[0], sweet1[1]];
+        GameManager.Instance.Sweets[sweet1[0], sweet1[1]] = GameManager.Instance.Sweets[sweet2[0], sweet2[1]];
+        GameManager.Instance.Sweets[sweet2[0], sweet2[1]] = tempSweet;
+        
+
+        //如果是最上面的糖果是空的，则在原位生成一个非空的糖果
     }
 
 
